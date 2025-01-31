@@ -14,7 +14,13 @@ public class Reserva {
     private LocalDate checkIn;
     private LocalDate checkOut;
     
-    public Reserva(LocalDate checkIn, LocalDate checkOut, int roomNumber){
+    public Reserva(LocalDate checkIn, LocalDate checkOut, int roomNumber) throws DomainException{
+        if(checkIn.isAfter(checkOut)){
+            throw new DomainException("check out dates mus be after check in dates");
+        }
+        if(checkIn.isBefore(LocalDate.now())){
+            throw new DomainException("Reservation dates for update must be future dates");
+        }
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.roomNumber = roomNumber;

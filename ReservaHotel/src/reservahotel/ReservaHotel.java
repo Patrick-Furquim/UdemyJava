@@ -4,7 +4,6 @@
  */
 package reservahotel;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -28,18 +27,23 @@ public class ReservaHotel {
     
     
     public Reserva criarReserva(){
-        System.out.println("Qual quarto voce deseja?");
-        String stringQuarto = scanner.nextLine();
-        int quarto = Integer.parseInt(stringQuarto);
-        System.out.println("Quando fara o check in? Utilize o formato dd/MM/yyyy");
-        String dataString = scanner.nextLine();
-        LocalDate checkIn = LocalDate.parse(dataString, formatter);
-        System.out.println("Quando fara o check out? Utilize o formato dd/MM/yyyy");
-        dataString = scanner.nextLine();
-        LocalDate checkOut = LocalDate.parse(dataString, formatter);
-        
-        Reserva reserva = new Reserva(checkIn, checkOut, quarto);
-        return reserva;
+        try{
+            System.out.println("Qual quarto voce deseja?");
+            String stringQuarto = scanner.nextLine();
+            int quarto = Integer.parseInt(stringQuarto);
+            System.out.println("Quando fara o check in? Utilize o formato dd/MM/yyyy");
+            String dataString = scanner.nextLine();
+            LocalDate checkIn = LocalDate.parse(dataString, formatter);
+            System.out.println("Quando fara o check out? Utilize o formato dd/MM/yyyy");
+            dataString = scanner.nextLine();
+            LocalDate checkOut = LocalDate.parse(dataString, formatter);
+            Reserva reserva = new Reserva(checkIn, checkOut, quarto);  
+            return reserva;
+        }
+        catch(DomainException e){
+            System.out.println("Error in reservation: "+ e.getMessage());
+        }
+        return null;
     }
     
     public void updateReserva(Reserva reserva){
